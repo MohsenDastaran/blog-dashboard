@@ -11,6 +11,7 @@
   "dependencies": {
     "@primevue/themes": "^4.2.1",
     "path": "^0.12.7",
+    "pinia": "^2.2.6",
     "primevue": "^4.2.1",
     "url": "^0.11.4",
     "vite-tsconfig-paths": "^5.1.2",
