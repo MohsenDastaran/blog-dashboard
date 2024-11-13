@@ -3,15 +3,13 @@
 		{ "path": "./tsconfig.app.json" },
 		{ "path": "./tsconfig.node.json" }
 	],
-	// "compilerOptions": {
-	// 	"types": ["node"]
-	// },
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["src/*"]
-		}
+		},
+		"types": ["vite/client"]
 	},
-	"include": ["src/**/*"],
+	"include": ["src/**/*", "vue-shim.d.ts"],
 	"exclude": ["node_modules", "dist"]
 }
