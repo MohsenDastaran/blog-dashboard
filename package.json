@@ -13,6 +13,7 @@
     "@primevue/forms": "^4.2.1",
     "@primevue/themes": "^4.2.1",
     "element-plus": "^2.8.7",
+    "js-cookie": "^3.0.5",
     "ofetch": "^1.4.1",
     "path": "^0.12.7",
     "pinia": "^2.2.6",

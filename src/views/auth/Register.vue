@@ -73,20 +73,21 @@
 	<strong style="cursor: pointer" @click="router.push('/login')">Login</strong>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import { ref, Ref } from "vue";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "primevue/usetoast";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore, IntUserRequest } from "@/store/auth";
 import { objectMap } from "@/utils/objectMap";
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 
 const toast = useToast();
 
 const password = ref("");
-const initialValues = ref({
+const initialValues: Ref<IntUserRequest> = ref({
 	username: "",
 	email: "",
 	password: "",
@@ -103,6 +104,7 @@ const resolver = zodResolver(
 		password: z.string().min(1, { message: "Required field" }),
 
 		// uncomment in case of more rules
+
 		// .max(8, { message: "Maximum 8 characters." })
 		// .refine((value) => /[a-z]/.test(value), {
 		// 	message: "Must have a lowercase letter.",
@@ -124,12 +126,14 @@ const onFormSubmit = (e) => {
 				toast.add({
 					severity: "success",
 					summary: "Success",
-					detail: `User ${res.user.username} created`,
+					detail: `User ${res?.user?.username || ""} created`,
 					life: 3000,
 				});
 				router.push("/");
 			})
 			.catch((error) => {
+				console.error("onFormSubmit", { error });
+
 				objectMap(error, (value, key) => {
 					toast.add({
 						severity: "error",

@@ -3,7 +3,6 @@
 <template>
 	<div>
 		<Toast
-			@close="onClose"
 			:pt="{
 				messageContent: 'pt-toast',
 			}"
