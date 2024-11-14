@@ -10,8 +10,8 @@
 		>
 			<template #message="slotProps">
 				<div class="toast-wrapper">
-					<strong> Amy Elsner </strong>
-					<div class="font-medium text-lg my-4">{{ slotProps.message.summary }}</div>
+					<strong> {{ slotProps.message.summary }} </strong>
+					<div class="font-medium text-lg my-4">{{ slotProps.message.detail }}</div>
 				</div>
 			</template>
 		</Toast>

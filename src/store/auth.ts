@@ -1,5 +1,12 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { api } from "@/utils/api";
+
+export interface IntUser extends Record<string, unknown> {
+	email: string;
+	password: string;
+	username: string;
+}
 
 export const useAuthStore = defineStore("auth", () => {
 	const isLoggedIn = ref(false);
@@ -8,5 +15,9 @@ export const useAuthStore = defineStore("auth", () => {
 		isLoggedIn.value = value;
 	};
 
-	return { isLoggedIn, setIsLoggedIn };
+	const registerUser = (payload: IntUser) => {
+		return api.post("users", { user: payload });
+	};
+
+	return { isLoggedIn, setIsLoggedIn, registerUser };
 });

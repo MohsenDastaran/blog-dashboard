@@ -4,7 +4,6 @@ import type {
 	RouteLocationNormalizedLoaded,
 	NavigationGuardNext,
 } from "vue-router";
-import AuthLayout from "@/views/auth/AuthLayout.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +11,7 @@ const router = createRouter({
 	routes: [
 		{
 			path: "/",
-			component: AuthLayout,
+			component: () => import("@/views/auth/AuthLayout.vue"),
 			children: [
 				{
 					path: "register",
@@ -22,7 +21,12 @@ const router = createRouter({
 				},
 			],
 		},
-		{ path: "/:pathMatch(.*)*", redirect: { name: "Error" } },
+		{
+			path: "/NotFound",
+			name: "NotFound",
+			component: () => import("@/views/error/NotFound.vue"),
+		},
+		{ path: "/:pathMatch(.*)*", redirect: { name: "NotFound" } },
 	],
 });
 
