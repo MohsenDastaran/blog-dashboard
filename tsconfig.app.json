@@ -7,6 +7,7 @@
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
 		"skipLibCheck": true,
 		"incremental": true,
+		"composite": true,
 
 		/* Bundler mode */
 		"moduleResolution": "Bundler",
@@ -22,5 +23,15 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true
 	},
-	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+
+	"include": [
+		"src/**/*.ts",
+		"src/**/*/*.ts",
+		"src/*.ts",
+		"src/**/*.vue",
+		"src/*.tsx",
+		"src/*.vue",
+		"src/**/*",
+		"vue-shim.d.ts"
+	]
 }
