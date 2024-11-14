@@ -75,7 +75,9 @@
 import { ref } from "vue";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { z } from "zod";
-import { toast } from "@/utils/toast";
+// import { toast } from "@/utils/toast";
+import { useToast } from "primevue/usetoast";
+const toast = useToast();
 
 const password = ref("");
 const initialValues = ref({
@@ -116,9 +118,15 @@ const onFormSubmit = (e) => {
 	// e.errors: An object that holds any validation errors for the invalid fields in the form.
 	// e.values: An object containing the current values of all form fields.
 	// e.reset: A function that resets the form to its initial state.
+	toast.add({
+		severity: "error",
+		summary: "Info",
+		detail: "Message Content",
+		life: 3000,
+	});
 
 	if (e.valid) {
-		toast.success("test");
+		// toast.success("test");
 	}
 };
 </script>
