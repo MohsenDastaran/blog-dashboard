@@ -1,31 +1,5 @@
 <template>
-	<Form
-		class="form"
-		v-slot="$form"
-		:initialValues
-		:resolver
-		@submit="onFormSubmit"
-	>
-		<div class="input-wrapper">
-			<label :class="{ 'label-error': $form.username?.invalid }" for="username"
-				>User</label
-			>
-			<InputText
-				pt:root:class="pt-input"
-				id="username"
-				name="username"
-				type="text"
-				fluid
-			/>
-			<Message
-				v-if="$form.username?.invalid"
-				severity="error"
-				size="small"
-				variant="simple"
-				>{{ $form.username.error.message }}</Message
-			>
-		</div>
-
+	<Form class="form" v-slot="$form" :resolver @submit="onFormSubmit">
 		<div class="input-wrapper">
 			<label :class="{ 'label-error': $form.email?.invalid }" for="email"
 				>Email</label
@@ -66,11 +40,13 @@
 			type="submit"
 			severity="info"
 			fluid
-			label="Register"
+			label="Login"
 		/>
 	</Form>
-	Already Registered?
-	<strong style="cursor: pointer" @click="router.push('/login')">Login</strong>
+	Don't have account?
+	<strong style="cursor: pointer" @click="router.push('/register')"
+		>Register now</strong
+	>
 </template>
 
 <script setup lang="ts">
@@ -87,16 +63,10 @@ const router = useRouter();
 const toast = useToast();
 
 const password = ref("");
-const initialValues: Ref<IntUserRequest> = ref({
-	username: "",
-	email: "",
-	password: "",
-});
 
 const resolver = zodResolver(
 	z.object({
-		// comment to remove validation for username & email
-		username: z.string().min(1, { message: "Username is required." }),
+		// comment to remove validation for email
 		email: z
 			.string()
 			.min(1, { message: "Email is required." })
@@ -121,12 +91,12 @@ const resolver = zodResolver(
 const onFormSubmit = (e) => {
 	if (e.valid) {
 		useAuthStore()
-			.registerUser(e.values)
+			.loginUser(e.values)
 			.then((res) => {
 				toast.add({
 					severity: "success",
 					summary: "Success",
-					detail: `User ${res?.user?.username || ""} created`,
+					detail: `${res?.user?.username || ""} has successfully logged in.`,
 					life: 3000,
 				});
 				router.push("/Dashboard");

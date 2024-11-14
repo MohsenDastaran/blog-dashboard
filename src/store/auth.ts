@@ -19,18 +19,30 @@ interface IntUser {
 
 export const useAuthStore = defineStore("auth", () => {
 	const isLoggedIn = ref(false);
+	const user = ref();
 
 	const setIsLoggedIn = (value: boolean) => {
 		isLoggedIn.value = value;
 	};
 
+	const setUserCredentials = (payload: IntUser) => {
+		user.value = payload;
+		const { token, ...userWithoutToken } = payload;
+		storage.set({ key: enuStorageKey.token, value: token });
+		storage.set({ key: enuStorageKey.user, value: userWithoutToken });
+		setIsLoggedIn(true);
+	};
+
 	const registerUser = (payload: IntUserRequest) =>
-		api.post("users", { user: payload }).then((data: IntUser) => {
-			storage.set({ key: enuStorageKey.token, value: data.token });
-			const { token, ...userWithoutToken } = data;
-			storage.set({ key: enuStorageKey.user, value: userWithoutToken });
+		api.post("users", { user: payload }).then((data: { user: IntUser }) => {
+			setUserCredentials(data.user);
+			return data;
+		});
+	const loginUser = (payload: IntUserRequest) =>
+		api.post("users/login", { user: payload }).then((data: { user: IntUser }) => {
+			setUserCredentials(data.user);
 			return data;
 		});
 
-	return { isLoggedIn, setIsLoggedIn, registerUser };
+	return { isLoggedIn, setIsLoggedIn, registerUser, loginUser };
 });

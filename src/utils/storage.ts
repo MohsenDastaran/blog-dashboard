@@ -27,6 +27,7 @@ export const StorageKeys: intfStorageKey = {
 
 export const storage = {
 	set(data: { value: any; key: enuStorageKey }) {
+		if (typeof data.value !== "string") data.value = JSON.stringify(data.value);
 		try {
 			switch (StorageKeys[data.key].where) {
 				case enuStorages.local:

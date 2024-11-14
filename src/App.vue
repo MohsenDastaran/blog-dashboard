@@ -4,6 +4,7 @@
 	<div>
 		<Toast
 			:pt="{
+				root: { class: 'toast-width' },
 				messageContent: 'pt-toast',
 			}"
 		>
