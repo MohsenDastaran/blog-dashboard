@@ -69,13 +69,21 @@
 			label="Register"
 		/>
 	</Form>
+	Already Registered?
+	<strong style="cursor: pointer" @click="router.push('/login')">Login</strong>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { z } from "zod";
-import { toast } from "@/utils/toast";
+import { useToast } from "primevue/usetoast";
+import { useAuthStore } from "@/store/auth";
+import { objectMap } from "@/utils/objectMap";
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const toast = useToast();
 
 const password = ref("");
 const initialValues = ref({
@@ -109,16 +117,28 @@ const resolver = zodResolver(
 );
 
 const onFormSubmit = (e) => {
-	console.log(e);
-	// e.originalEvent: Represents the native form submit event.
-	// e.valid: A boolean that indicates whether the form is valid or not.
-	// e.states: Contains the current state of each form field, including validity status.
-	// e.errors: An object that holds any validation errors for the invalid fields in the form.
-	// e.values: An object containing the current values of all form fields.
-	// e.reset: A function that resets the form to its initial state.
-
 	if (e.valid) {
-		toast.success("test");
+		useAuthStore()
+			.registerUser(e.values)
+			.then((res) => {
+				toast.add({
+					severity: "success",
+					summary: "Success",
+					detail: `User ${res.user.username} created`,
+					life: 3000,
+				});
+				router.push("/");
+			})
+			.catch((error) => {
+				objectMap(error, (value, key) => {
+					toast.add({
+						severity: "error",
+						summary: key,
+						detail: value[0],
+						life: 3000,
+					});
+				});
+			});
 	}
 };
 </script>
@@ -130,7 +150,7 @@ const onFormSubmit = (e) => {
 	color: var(--p-message-error-simple-color);
 }
 Form.form > Button {
-	margin: 10px 0;
+	margin: 20px 0 10px 0;
 	border: solid 1px var(--water-blue);
 	background-color: var(--water-blue);
 }
