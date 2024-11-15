@@ -144,8 +144,8 @@ const onLogout = () => {
 	font-size: 24px;
 	position: absolute;
 	z-index: 50;
-	top: 3px;
-	right: 20px;
+	top: 15px;
+	right: 17px;
 	cursor: pointer;
 }
 
@@ -189,7 +189,7 @@ const onLogout = () => {
 	color: white;
 	text-decoration: none;
 	display: block;
-	padding: 10px 10px 10px 35px;
+	padding: 17px 10px 17px 40px;
 	border-radius: 5px;
 	transition: background-color 0.3s;
 }
@@ -248,6 +248,12 @@ const onLogout = () => {
 
 	.mobile-only {
 		display: block;
+	}
+	.header-left {
+		font-size: 15px;
+	}
+	.header-left h2 {
+		font-size: 18px;
 	}
 }
 </style>

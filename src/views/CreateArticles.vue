@@ -16,15 +16,17 @@
 						placeholder="Description"
 						name="description"
 					></customInput>
-					<label for="textarea">Body</label>
-					<Textarea
-						name="body"
-						style="resize: none"
-						id="textarea"
-						rows="5"
-						cols="30"
-						fluid
-					/>
+					<div>
+						<label for="textarea">Body</label>
+						<Textarea
+							name="body"
+							style="resize: none; height: 190px"
+							id="textarea"
+							rows="5"
+							cols="30"
+							fluid
+						/>
+					</div>
 				</section>
 				<section class="tag">
 					<label for="tag">Tags</label>
@@ -60,7 +62,13 @@
 					</div>
 				</section>
 			</div>
-			<Button type="submit" label="Submit" severity="info" :loading="isLoading" />
+			<Button
+				style="padding: 8px"
+				type="submit"
+				label="Submit"
+				severity="info"
+				:loading="isLoading"
+			/>
 		</Form>
 	</div>
 </template>
@@ -145,6 +153,9 @@ section.info {
 	width: 75%;
 	margin-right: 30px;
 }
+section.info > * {
+	margin-bottom: 30px;
+}
 
 Form > Button {
 	margin: 20px 0 10px 0;
@@ -162,8 +173,8 @@ Form > Button {
 	margin-left: 15px;
 }
 .checkbox + label {
-	padding-left: 10px;
-	translate: 0px 6px;
+	padding: 5px 0 5px 15px;
+	translate: 0px 11px;
 	display: inline-block;
 }
 .checkbox + label::first-letter {
@@ -177,6 +188,10 @@ Form > Button {
 	height: 40px;
 }
 
+label {
+	display: block;
+	margin-bottom: 10px;
+}
 @media (max-width: 768px) {
 	section.info {
 		width: 100%;
