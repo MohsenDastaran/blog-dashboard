@@ -13,8 +13,8 @@ export const useArticleStore = defineStore("article", () => {
 	// const articles = ref([]);
 	const tags: Ref<string[]> = ref([]);
 
-	const createBlog = (payload: IntCreateArticle) =>
-		api.post("articles", { article: payload });
+	const createBlog = (payload: IntCreateArticle, element: HTMLElement) =>
+		api.post("articles", { article: payload }, element);
 	const getTags = (element: HTMLElement) => {
 		if (tags.value.length) {
 			return Promise.resolve({ tags: tags.value });

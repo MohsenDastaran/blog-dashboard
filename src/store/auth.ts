@@ -19,19 +19,24 @@ interface IntUser {
 }
 
 export const useAuthStore = defineStore("auth", () => {
-	const isLoggedIn = ref(true);
+	const isLoggedIn = ref(false);
 	const user = ref({});
+	const token = ref("");
 
 	const setIsLoggedIn = (value: boolean) => {
 		isLoggedIn.value = value;
 	};
 
-	const setUserCredentials = (payload: IntUser) => {
+	const setUserCredentialsInApp = (payload: IntUser) => {
 		user.value = payload;
+		token.value = payload.token;
+		setIsLoggedIn(true);
+	};
+	const setUserCredentials = (payload: IntUser) => {
+		setUserCredentialsInApp(payload);
 		const { token, ...userWithoutToken } = payload;
 		storage.set({ key: enuStorageKey.token, value: token });
 		storage.set({ key: enuStorageKey.user, value: userWithoutToken });
-		setIsLoggedIn(true);
 	};
 	const logoutUser = () => {
 		setIsLoggedIn(false);
@@ -52,5 +57,14 @@ export const useAuthStore = defineStore("auth", () => {
 			return data;
 		});
 
-	return { isLoggedIn, setIsLoggedIn, registerUser, loginUser, logoutUser };
+	return {
+		isLoggedIn,
+		setIsLoggedIn,
+		registerUser,
+		loginUser,
+		logoutUser,
+		setUserCredentials,
+		setUserCredentialsInApp,
+		user,
+	};
 });

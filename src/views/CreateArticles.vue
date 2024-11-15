@@ -1,5 +1,5 @@
 <template>
-	<div class="crete-article">
+	<div class="crete-article" ref="createArticleForm">
 		<h2>New Article</h2>
 		<Form @submit="onFormSubmit" :resolver v-slot="$form">
 			<div class="section-wrapper">
@@ -74,12 +74,14 @@ import arrow from "@/components/arrow.vue";
 import { useToast } from "primevue/usetoast";
 import { useRouter } from "vue-router";
 
+const router = useRouter();
 const toast = useToast();
 
 const newTag = ref("");
 const tags: Ref<string[]> = ref([]);
 const selectedTags: Ref<string[]> = ref([]);
 const tagsBox = useTemplateRef("tagsBox");
+const createArticleForm = useTemplateRef("createArticleForm");
 
 const store = useArticleStore();
 const isLoading = ref(false);
@@ -101,10 +103,8 @@ const resolver = zodResolver(
 const onFormSubmit = (e) => {
 	if (e.valid) {
 		const payload = { ...e.values, tagList: toRaw(selectedTags.value) };
-		console.log(payload);
-
 		store
-			.createBlog(e.values)
+			.createBlog(payload, createArticleForm.value)
 			.then(() => {
 				toast.add({
 					severity: "success",
@@ -112,9 +112,10 @@ const onFormSubmit = (e) => {
 					detail: `Blog created successfully.`,
 					life: 3000,
 				});
-				useRouter().push("/articles");
+				router.push("/articles");
 			})
-			.catch(() => {
+			.catch((err) => {
+				console.error(err);
 				toast.add({
 					severity: "error",
 					summary: "Error",

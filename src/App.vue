@@ -16,7 +16,16 @@
 		<router-view> </router-view>
 	</div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { enuStorageKey, storage } from "@/utils/storage";
+import { useAuthStore } from "@/store/auth";
+
+const token = storage.get(enuStorageKey.token);
+const UserData = storage.get(enuStorageKey.user);
+if (token && UserData) {
+	useAuthStore().setUserCredentialsInApp({ ...JSON.parse(UserData), token });
+}
+</script>
 
 <style scoped>
 strong {

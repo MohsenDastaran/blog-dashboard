@@ -4,7 +4,7 @@
 		<header class="header">
 			<div class="header-left">
 				<h2>Arvan Challenge</h2>
-				<span>Welcome {{ username }}</span>
+				<span>Welcome {{ useAuthStore().user?.username }}</span>
 			</div>
 			<button @click="onLogout" class="logout-button desktop-only">Logout</button>
 			<button
@@ -86,8 +86,6 @@ const onLogout = () => {
 		},
 	});
 };
-
-const username = "User"; // Use a reactive variable if dynamic updates are needed
 </script>
 
 <style scoped>
