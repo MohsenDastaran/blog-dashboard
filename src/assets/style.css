@@ -20,8 +20,7 @@
 /* Fonts */
 @font-face {
 	font-family: "Helvetica Neue";
-	src: url("@/assets/fonts/Neue-Helvetica.ttf") format("truetype");
-	font-weight: normal;
+	src: url("@/assets/fonts/HelveticaNeueLight.otf") format("opentype");
 	font-style: normal;
 }
 body {
@@ -29,9 +28,7 @@ body {
 }
 * {
 	font-family: "Helvetica Neue";
-	font-feature-settings: "tnum" !important; /* Tabular numbers */
-	font-variant-numeric: tabular-nums !important; /* Ensure numbers are uniform width */
-	unicode-bidi: plaintext !important; /* Override contextual number shaping */
+	letter-spacing: 1px;
 }
 .pt-input {
 	border-radius: 4px !important;

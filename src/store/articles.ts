@@ -20,16 +20,11 @@ export const useArticleStore = defineStore("article", () => {
 			return Promise.resolve({ tags: tags.value });
 		}
 
-		// If not, make the API call and return the promise
-		return api.get("tags", {}, element).then((data) => {
+		return api.get("tags", {}, element).then((data: { tags: string[] }) => {
 			tags.value = data.tags;
-			return data; // Or return data.tags if you only need the tags array
+			return data;
 		});
 	};
-	// const loginUser = (payload: IntUserRequest) =>
-	// 	api.post("users/login", { user: payload }).then((data: { user: IntUser }) => {
-	// 		return data;
-	// 	});
 
 	return { getTags, createBlog, tags };
 });

@@ -133,8 +133,12 @@ const onFormSubmit = (e) => {
 	color: var(--p-message-error-simple-color);
 }
 Form.form > Button {
-	margin: 20px 0 10px 0;
+	margin: 15px 0;
 	border: solid 1px var(--water-blue);
 	background-color: var(--water-blue);
+}
+label {
+	display: block;
+	margin-bottom: 10px;
 }
 </style>

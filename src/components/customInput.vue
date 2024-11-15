@@ -24,4 +24,8 @@ defineProps<{
 .label-error {
 	color: var(--p-message-error-simple-color);
 }
+label {
+	display: block;
+	margin-bottom: 10px;
+}
 </style>
