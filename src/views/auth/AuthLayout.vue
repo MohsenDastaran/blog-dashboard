@@ -2,13 +2,12 @@
 	<div class="auth-layout">
 		<div class="card">
 			<h1 class="title">{{ route.name }}</h1>
-			<router-view />
+			<RouterView />
 		</div>
 	</div>
 </template>
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-
 const route = useRoute();
 </script>
 <style scoped>

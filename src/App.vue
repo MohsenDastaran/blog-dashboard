@@ -3,8 +3,8 @@
 <template>
 	<div>
 		<Toast
-			@close="onClose"
 			:pt="{
+				root: { class: 'toast-width' },
 				messageContent: 'pt-toast',
 			}"
 		>

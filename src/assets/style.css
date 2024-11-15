@@ -44,3 +44,17 @@
 body .pt-toast {
 	align-items: baseline;
 }
+body .toast-width {
+	width: 30rem;
+}
+@media (max-width: 767px) {
+	.card {
+		margin: 0 1rem;
+	}
+	body .toast-width {
+		width: 22rem;
+	}
+	.toast-wrapper > strong {
+		display: none;
+	}
+}

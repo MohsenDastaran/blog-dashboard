@@ -1,26 +1,41 @@
+import { useAuthStore } from "@/store/auth";
 import { createRouter, createWebHistory } from "vue-router";
 import type {
 	RouteLocationNormalized,
 	RouteLocationNormalizedLoaded,
 	NavigationGuardNext,
 } from "vue-router";
-
+function createRoute(name: string, isChild: boolean = false) {
+	return {
+		path: isChild ? "" : "/" + name.toLowerCase(),
+		name,
+		alias: `/${name.toLowerCase()}`,
+	};
+}
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	strict: true,
 	routes: [
 		{
-			path: "/",
+			name: "auth",
+			path: "/auth",
 			component: () => import("@/views/auth/AuthLayout.vue"),
 			children: [
 				{
-					path: "register",
-					name: "Register",
+					...createRoute("Register", true),
 					component: () => import("@/views/auth/Register.vue"),
-					alias: "/register",
+				},
+				{
+					...createRoute("Login", true),
+					component: () => import("@/views/auth/Login.vue"),
 				},
 			],
 		},
+		{
+			...createRoute("Dashboard"),
+			component: () => import("@/views/Dashboard.vue"),
+		},
+		// createRoute("/Dashboard"),
 		{
 			path: "/NotFound",
 			name: "NotFound",
@@ -36,11 +51,19 @@ router.beforeEach(
 		_from: RouteLocationNormalizedLoaded,
 		next: NavigationGuardNext
 	) => {
-		// @check login status
-		if (true) {
+		const authStore = useAuthStore();
+		console.log(to);
+
+		// Check if the user is logged in
+		if (authStore.isLoggedIn || to.name === "NotFound") {
 			next();
 		} else {
-			next("/login");
+			const matched = to.matched.map((r) => r.name);
+			if (matched.includes("auth")) {
+				next();
+			} else {
+				next("/login");
+			}
 		}
 	}
 );

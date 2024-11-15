@@ -44,8 +44,6 @@ const useApi = (data: ApiRequestData) =>
 			// headers: { token: storage.get("token") },
 		})
 			.then((res: unknown) => {
-				console.log({ res });
-
 				resolve(res);
 			})
 			.catch((err) => reject(err.data.errors))
