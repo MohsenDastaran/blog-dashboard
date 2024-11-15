@@ -1,18 +1,11 @@
 <template>
 	<Form class="form" v-slot="$form" :resolver @submit="onFormSubmit">
-		<div class="input-wrapper">
-			<label :class="{ 'label-error': $form.email?.invalid }" for="email"
-				>Email</label
-			>
-			<InputText pt:root:class="pt-input" name="email" type="text" fluid />
-			<Message
-				v-if="$form.email?.invalid"
-				severity="error"
-				size="small"
-				variant="simple"
-				>{{ $form.email.error?.message }}</Message
-			>
-		</div>
+		<customInput
+			label="Email"
+			name="email"
+			:errorMessage="$form.email?.error?.message"
+			:invalid="$form.email?.invalid"
+		></customInput>
 		<div class="input-wrapper">
 			<label :class="{ 'label-error': $form.password?.invalid }" for="password"
 				>Password</label
@@ -50,11 +43,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { ref } from "vue";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "primevue/usetoast";
-import { useAuthStore, IntUserRequest } from "@/store/auth";
+import { useAuthStore } from "@/store/auth";
 import { objectMap } from "@/utils/objectMap";
 import { useRouter } from "vue-router";
 
@@ -66,11 +59,11 @@ const password = ref("");
 
 const resolver = zodResolver(
 	z.object({
-		// comment to remove validation for email
-		email: z
-			.string()
-			.min(1, { message: "Email is required." })
-			.email({ message: "Invalid email address." }),
+		// uncomment to add validation for email
+		email: z.string().optional(),
+
+		// 	.min(1, { message: "Email is required." })
+		// 	.email({ message: "Invalid email address." }),
 		password: z.string().min(1, { message: "Required field" }),
 
 		// uncomment in case of more rules
@@ -99,10 +92,10 @@ const onFormSubmit = (e) => {
 					detail: `${res?.user?.username || ""} has successfully logged in.`,
 					life: 3000,
 				});
-				router.push("/Dashboard");
+				router.push("/");
 			})
-			.catch((error) => {
-				objectMap(error, (value, key) => {
+			.catch((error: Record<string, [string]>) => {
+				objectMap(error, (value: [string], key: string) => {
 					toast.add({
 						severity: "error",
 						summary: key,
@@ -114,7 +107,7 @@ const onFormSubmit = (e) => {
 	}
 };
 </script>
-<style>
+<style scoped>
 .input-wrapper {
 	margin-bottom: 20px;
 }

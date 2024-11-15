@@ -12,6 +12,9 @@
 	--slate-gray: #818a91;
 	--water-blue: #1c7cd5;
 	--silver: #eceeef;
+	--p-form-field-focus-border-color: #1c7cd5 !important;
+	--p-primary-color: #1c7cd5 !important;
+	--p-primary-hover-color: #155490 !important;
 }
 
 /* Fonts */
@@ -21,7 +24,9 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
+body {
+	margin: 0;
+}
 * {
 	font-family: "Helvetica Neue";
 	font-feature-settings: "tnum" !important; /* Tabular numbers */
@@ -57,4 +62,33 @@ body .toast-width {
 	.toast-wrapper > strong {
 		display: none;
 	}
+}
+
+/* fade transition on view change */
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+}
+
+::-webkit-scrollbar {
+	width: 4px; /* Narrow width */
+	height: 8px; /* Narrow height for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--water-blue); /* Thumb color */
+	border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--charcoal-grey);
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1; /* Track color */
 }

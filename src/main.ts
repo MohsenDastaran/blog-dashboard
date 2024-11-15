@@ -6,19 +6,20 @@ import Aura from "@primevue/themes/aura";
 import router from "./router";
 import { createPinia } from "pinia";
 import ToastService from "primevue/toastservice";
-const pinia = createPinia();
-const app = createApp(App);
+import ConfirmationService from "primevue/confirmationservice";
 
-app.mount("#app");
+const pinia = createPinia();
+
 createApp(App)
 	.use(router)
 	.use(pinia)
 	.use(ToastService)
+	.use(ConfirmationService)
 	.use(PrimeVue, {
 		theme: {
 			preset: Aura,
 			options: {
-				darkModeSelector: false || "none",
+				darkModeSelector: false,
 			},
 		},
 	})

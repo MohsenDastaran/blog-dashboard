@@ -3,6 +3,7 @@ import "element-plus/theme-chalk/el-loading.css";
 import "element-plus/theme-chalk/base.css";
 import "element-plus/theme-chalk/el-overlay.css";
 import { ofetch } from "ofetch";
+import { enuStorageKey, storage } from "./storage";
 
 enum APIMETHODSTYPES {
 	GET = "get",
@@ -41,7 +42,7 @@ const useApi = (data: ApiRequestData) =>
 		ofetch(url, {
 			method: data.method,
 			body: data.body,
-			// headers: { token: storage.get("token") },
+			headers: { Authorization: `Token ${storage.get(enuStorageKey.token)}` },
 		})
 			.then((res: unknown) => {
 				resolve(res);
