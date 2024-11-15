@@ -1,18 +1,11 @@
 <template>
 	<Form class="form" v-slot="$form" :resolver @submit="onFormSubmit">
-		<div class="input-wrapper">
-			<label :class="{ 'label-error': $form.email?.invalid }" for="email"
-				>Email</label
-			>
-			<InputText pt:root:class="pt-input" name="email" type="text" fluid />
-			<Message
-				v-if="$form.email?.invalid"
-				severity="error"
-				size="small"
-				variant="simple"
-				>{{ $form.email.error?.message }}</Message
-			>
-		</div>
+		<customInput
+			label="Email"
+			name="email"
+			:errorMessage="$form.email?.error?.message"
+			:invalid="$form.email?.invalid"
+		></customInput>
 		<div class="input-wrapper">
 			<label :class="{ 'label-error': $form.password?.invalid }" for="password"
 				>Password</label
@@ -114,7 +107,7 @@ const onFormSubmit = (e) => {
 	}
 };
 </script>
-<style>
+<style scoped>
 .input-wrapper {
 	margin-bottom: 20px;
 }
