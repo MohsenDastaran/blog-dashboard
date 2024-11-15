@@ -5,6 +5,7 @@ import type {
 	RouteLocationNormalizedLoaded,
 	NavigationGuardNext,
 } from "vue-router";
+
 function createRoute(name: string, isChild: boolean = false) {
 	return {
 		path: isChild ? "" : "/" + name.toLowerCase(),
@@ -19,7 +20,7 @@ const router = createRouter({
 		{
 			name: "auth",
 			path: "/auth",
-			component: () => import("@/views/auth/AuthLayout.vue"),
+			component: () => import("@/views/layout/AuthLayout.vue"),
 			children: [
 				{
 					...createRoute("Register", true),
@@ -32,10 +33,17 @@ const router = createRouter({
 			],
 		},
 		{
-			...createRoute("Dashboard"),
-			component: () => import("@/views/Dashboard.vue"),
+			...createRoute(""),
+			redirect: { name: "Articles" },
+			component: () => import("@/views/layout/MainLayout.vue"),
+
+			children: [
+				{
+					...createRoute("Articles"),
+					component: () => import("@/views/Articles.vue"),
+				},
+			],
 		},
-		// createRoute("/Dashboard"),
 		{
 			path: "/NotFound",
 			name: "NotFound",
@@ -52,10 +60,10 @@ router.beforeEach(
 		next: NavigationGuardNext
 	) => {
 		const authStore = useAuthStore();
-		console.log(to);
 
 		// Check if the user is logged in
 		if (authStore.isLoggedIn || to.name === "NotFound") {
+			if (to.path === "/") next("/Articles");
 			next();
 		} else {
 			const matched = to.matched.map((r) => r.name);

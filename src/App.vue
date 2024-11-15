@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
 	<div>
 		<Toast
@@ -18,6 +16,7 @@
 		<RouterView />
 	</div>
 </template>
+<script setup lang="ts"></script>
 
 <style scoped>
 strong {

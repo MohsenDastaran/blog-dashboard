@@ -129,7 +129,7 @@ const onFormSubmit = (e) => {
 					detail: `User ${res?.user?.username || ""} created`,
 					life: 3000,
 				});
-				router.push("/Dashboard");
+				router.push("/");
 			})
 			.catch((error) => {
 				objectMap(error, (value, key) => {

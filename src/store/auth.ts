@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { api } from "@/utils/api";
 import { enuStorageKey, storage } from "@/utils/storage";
+import router from "@/router";
 
 export interface IntUserRequest extends Record<string, unknown> {
 	email: string;
@@ -18,8 +19,8 @@ interface IntUser {
 }
 
 export const useAuthStore = defineStore("auth", () => {
-	const isLoggedIn = ref(false);
-	const user = ref();
+	const isLoggedIn = ref(true);
+	const user = ref({});
 
 	const setIsLoggedIn = (value: boolean) => {
 		isLoggedIn.value = value;
@@ -31,6 +32,13 @@ export const useAuthStore = defineStore("auth", () => {
 		storage.set({ key: enuStorageKey.token, value: token });
 		storage.set({ key: enuStorageKey.user, value: userWithoutToken });
 		setIsLoggedIn(true);
+	};
+	const logoutUser = () => {
+		setIsLoggedIn(false);
+		user.value = {};
+		storage.remove(enuStorageKey.token);
+		storage.remove(enuStorageKey.user);
+		router.push("login");
 	};
 
 	const registerUser = (payload: IntUserRequest) =>
@@ -44,5 +52,5 @@ export const useAuthStore = defineStore("auth", () => {
 			return data;
 		});
 
-	return { isLoggedIn, setIsLoggedIn, registerUser, loginUser };
+	return { isLoggedIn, setIsLoggedIn, registerUser, loginUser, logoutUser };
 });

@@ -50,11 +50,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { ref } from "vue";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "primevue/usetoast";
-import { useAuthStore, IntUserRequest } from "@/store/auth";
+import { useAuthStore } from "@/store/auth";
 import { objectMap } from "@/utils/objectMap";
 import { useRouter } from "vue-router";
 
@@ -99,10 +99,10 @@ const onFormSubmit = (e) => {
 					detail: `${res?.user?.username || ""} has successfully logged in.`,
 					life: 3000,
 				});
-				router.push("/Dashboard");
+				router.push("/");
 			})
-			.catch((error) => {
-				objectMap(error, (value, key) => {
+			.catch((error: Record<string, [string]>) => {
+				objectMap(error, (value: [string], key: string) => {
 					toast.add({
 						severity: "error",
 						summary: key,

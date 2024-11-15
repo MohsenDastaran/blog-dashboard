@@ -78,6 +78,8 @@ export const storage = {
 		}
 	},
 	removeAll(storage: enuStorages) {
+		console.log("inRemoveAll");
+
 		switch (storage) {
 			case enuStorages.local:
 				return window.localStorage.clear();

@@ -21,7 +21,9 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
+body {
+	margin: 0;
+}
 * {
 	font-family: "Helvetica Neue";
 	font-feature-settings: "tnum" !important; /* Tabular numbers */
