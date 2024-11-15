@@ -1,8 +1,17 @@
 <template>
 	<div class="auth-layout">
 		<div class="card">
-			<h1 class="title">{{ route.name }}</h1>
-			<RouterView />
+			<Transition name="fade" mode="out-in">
+				<h1 :key="route.name" class="title">{{ route.name }}</h1>
+			</Transition>
+
+			<router-view v-slot="{ Component, route }">
+				<Transition name="fade" mode="out-in">
+					<div :key="route.name">
+						<component :is="Component"></component>
+					</div>
+				</Transition>
+			</router-view>
 		</div>
 	</div>
 </template>

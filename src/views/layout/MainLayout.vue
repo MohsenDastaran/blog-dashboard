@@ -3,10 +3,10 @@
 	<div class="main-layout">
 		<header class="header">
 			<div class="header-left">
-				<span>Arvan Challenge</span>
+				<h2>Arvan Challenge</h2>
 				<span>Welcome {{ username }}</span>
 			</div>
-			<button @click="onLogout" class="logout-button">Logout</button>
+			<button @click="onLogout" class="logout-button desktop-only">Logout</button>
 			<button
 				@click="toggleSidebar"
 				class="hamburger-menu"
@@ -33,14 +33,22 @@
 			<nav>
 				<ul>
 					<li><router-link to="/articles" exact>All Articles</router-link></li>
-					<li><router-link to="/articles/new">New Article</router-link></li>
+					<li><router-link to="/articles/create">New Article</router-link></li>
 				</ul>
 			</nav>
+			<!-- Logout button in sidebar for mobile view -->
+			<button @click="onLogout" class="sidebar-logout mobile-only">Logout</button>
 		</aside>
 
 		<!-- Main Content -->
 		<div class="content">
-			<RouterView />
+			<router-view v-slot="{ Component, route }">
+				<Transition name="fade" mode="out-in">
+					<div :key="route.name">
+						<component :is="Component"></component>
+					</div>
+				</Transition>
+			</router-view>
 		</div>
 	</div>
 </template>
@@ -97,8 +105,16 @@ const username = "User"; // Use a reactive variable if dynamic updates are neede
 
 .header-left {
 	display: flex;
+	align-items: baseline;
 	gap: 15px;
 	font-size: 18px;
+}
+.header-left h2 {
+	font-size: 22px;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	letter-spacing: normal;
 }
 
 .logout-button {
@@ -110,6 +126,14 @@ const username = "User"; // Use a reactive variable if dynamic updates are neede
 	cursor: pointer;
 }
 
+.desktop-only {
+	display: block;
+}
+
+.mobile-only {
+	display: none;
+}
+
 /* Hamburger Menu */
 .hamburger-menu {
 	background: none;
@@ -119,7 +143,7 @@ const username = "User"; // Use a reactive variable if dynamic updates are neede
 	font-size: 24px;
 	position: absolute;
 	z-index: 50;
-	top: 18px;
+	top: 3px;
 	right: 20px;
 	cursor: pointer;
 }
@@ -151,16 +175,42 @@ const username = "User"; // Use a reactive variable if dynamic updates are neede
 
 .sidebar nav ul {
 	list-style: none;
+	margin: 0;
 	padding: 0;
 }
 
-.sidebar nav ul li {
+/* .sidebar nav ul li {
 	padding: 15px 20px;
-}
+} */
 
 .sidebar nav ul li a {
 	color: white;
 	text-decoration: none;
+	display: block;
+	padding: 10px 10px 10px 35px;
+	border-radius: 5px;
+	transition: background-color 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-logout {
+	background: none;
+	border: 1px solid white;
+	color: white;
+	padding: 10px;
+	margin: 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	width: calc(100% - 40px);
+	text-align: center;
+	transition: background-color 0.3s;
+}
+
+.sidebar-logout:hover {
+	background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Main Content */
@@ -176,7 +226,8 @@ const username = "User"; // Use a reactive variable if dynamic updates are neede
 	}
 
 	.sidebar-open {
-		transform: translateX(0);
+		transform: translateX(-20%);
+		padding-left: 20%;
 	}
 
 	.content,
@@ -185,6 +236,14 @@ const username = "User"; // Use a reactive variable if dynamic updates are neede
 	}
 
 	.hamburger-menu {
+		display: block;
+	}
+
+	.desktop-only {
+		display: none;
+	}
+
+	.mobile-only {
 		display: block;
 	}
 }
