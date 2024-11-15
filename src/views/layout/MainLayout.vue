@@ -44,9 +44,8 @@
 		<div class="content">
 			<router-view v-slot="{ Component, route }">
 				<Transition name="fade" mode="out-in">
-					<div :key="route.name">
-						<component :is="Component"></component>
-					</div>
+					<!-- Ensure the key is correctly managed here -->
+					<component :is="Component" :key="route.name"></component>
 				</Transition>
 			</router-view>
 		</div>
@@ -101,6 +100,10 @@ const username = "User"; // Use a reactive variable if dynamic updates are neede
 	color: white;
 	padding: 10px 20px;
 	height: 60px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1;
 }
 
 .header-left {
@@ -164,6 +167,7 @@ const username = "User"; // Use a reactive variable if dynamic updates are neede
 	color: white;
 	margin-top: 60px;
 	transition: transform 0.3s ease;
+	z-index: 1;
 }
 
 .sidebar h2 {
@@ -216,6 +220,7 @@ const username = "User"; // Use a reactive variable if dynamic updates are neede
 /* Main Content */
 .content {
 	margin-left: 250px;
+	margin-top: 60px;
 	padding: 20px;
 }
 

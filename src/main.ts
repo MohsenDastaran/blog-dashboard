@@ -9,9 +9,7 @@ import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";
 
 const pinia = createPinia();
-const app = createApp(App);
 
-app.mount("#app");
 createApp(App)
 	.use(router)
 	.use(pinia)
