@@ -43,16 +43,16 @@ const router = createRouter({
 					component: () => import("@/views/Articles.vue"),
 					alias: "/Articles/page/:page",
 				},
-				// {
-				// 	name: "Articles",
-				// 	path: "/articles/page/:page",
-				// 	component: () => import("@/views/Articles.vue"),
-				// },
 				{
 					name: "CreateArticles",
 					path: "/articles/create",
 					component: () => import("@/views/CreateArticles.vue"),
-					alias: "/Articles/edit/:slug",
+					// alias: "/Articles/edit/:slug",
+				},
+				{
+					name: "editArticles",
+					path: "/Articles/edit/:slug",
+					component: () => import("@/views/CreateArticles.vue"),
 				},
 			],
 		},

@@ -51,7 +51,7 @@
 						</InputGroupAddon>
 					</InputGroup>
 					<div class="tags-box" ref="tagsBox">
-						<div v-for="tag in tags?.sort()">
+						<div v-for="tag in tags?.sort()" :key="tag">
 							<Checkbox
 								class="checkbox"
 								size="small"
@@ -85,9 +85,7 @@ const router = useRouter();
 const toast = useToast();
 
 const slug = computed(() => router.currentRoute?.value?.params?.slug);
-const isEdit = computed(
-	() => Boolean(store.articleForEdit) || Boolean(slug.value)
-);
+const isEdit = computed(() => Boolean(slug.value));
 const articleForEdit = computed(() => store.articleForEdit);
 
 const newTag = ref("");
@@ -178,6 +176,7 @@ const onFormSubmit = (e) => {
 			});
 	}
 };
+
 onMounted(() => {
 	store.getTags(tagsBox.value).then((data) => {
 		tags.value = data.tags;
