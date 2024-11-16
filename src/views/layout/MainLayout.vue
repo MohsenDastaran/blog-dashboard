@@ -101,7 +101,7 @@ const onLogout = () => {
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: 1;
+	z-index: 2;
 }
 
 .header-left {
@@ -165,7 +165,7 @@ const onLogout = () => {
 	color: white;
 	margin-top: 60px;
 	transition: transform 0.3s ease;
-	z-index: 1;
+	z-index: 2;
 }
 
 .sidebar h2 {
@@ -250,10 +250,10 @@ const onLogout = () => {
 		display: block;
 	}
 	.header-left {
-		font-size: 15px;
+		font-size: 12px;
 	}
 	.header-left h2 {
-		font-size: 18px;
+		font-size: 16px;
 	}
 }
 </style>

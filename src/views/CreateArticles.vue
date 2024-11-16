@@ -39,7 +39,7 @@
 							type="text"
 							placeholder="New tag"
 							fluid
-							@keypress.enter="addTag"
+							@keypress.enter.prevent="addTag"
 						/>
 						<InputGroupAddon :class="{ 'opacity-1': Boolean(newTag) }">
 							<Button @click="addTag" icon="pi pi-times" severity="secondary"
@@ -67,7 +67,7 @@
 	</div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { ref, onMounted, useTemplateRef, Ref, toRaw } from "vue";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { z } from "zod";
@@ -80,8 +80,8 @@ const router = useRouter();
 const toast = useToast();
 
 const newTag = ref("");
-const tags: Ref<string[]> = ref([]);
-const selectedTags: Ref<string[]> = ref([]);
+const tags = ref([]);
+const selectedTags = ref([]);
 const tagsBox = useTemplateRef("tagsBox");
 const createArticleForm = useTemplateRef("createArticleForm");
 
