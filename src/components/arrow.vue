@@ -26,7 +26,7 @@
 <style scoped>
 svg {
 	scale: 0.5;
-	translate: 0 -7px;
+	translate: 0 -8px;
 	fill: var(--water-blue);
 }
 </style>

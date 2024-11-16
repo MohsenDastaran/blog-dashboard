@@ -111,12 +111,12 @@ const onFormSubmit = (e) => {
 				});
 				router.push("/");
 			})
-			.catch((error) => {
-				objectMap(error, (value, key) => {
+			.catch((err) => {
+				objectMap(err.errors, (value, key) => {
 					toast.add({
 						severity: "error",
 						summary: key,
-						detail: value[0],
+						detail: value[0] || "Something goes wrong",
 						life: 3000,
 					});
 				});

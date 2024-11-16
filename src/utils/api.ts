@@ -47,7 +47,7 @@ const useApi = (data: ApiRequestData) =>
 			.then((res: unknown) => {
 				resolve(res);
 			})
-			.catch((err) => reject(err.data.errors))
+			.catch((err) => reject(err.data))
 			.finally(() => {
 				loadingInstance.close();
 			});
@@ -59,9 +59,15 @@ export const api = {
 		queryParams?: Record<string, unknown>,
 		element?: HTMLElement
 	) => useApi({ url, method: APIMETHODSTYPES.GET, queryParams, element }),
-	delete: (url: string) => useApi({ url, method: APIMETHODSTYPES.DELETE }),
+	delete: (
+		url: string,
+		queryParams?: Record<string, unknown>,
+		element?: HTMLElement
+	) => useApi({ url, method: APIMETHODSTYPES.DELETE, queryParams, element }),
 	post: (url: string, body: Record<string, unknown>, element?: HTMLElement) =>
 		useApi({ url, method: APIMETHODSTYPES.POST, body, element }),
-	put: (url: string) => useApi({ url, method: APIMETHODSTYPES.PUT }),
-	patch: (url: string) => useApi({ url, method: APIMETHODSTYPES.PATCH }),
+	put: (url: string, body: Record<string, unknown>, element?: HTMLElement) =>
+		useApi({ url, method: APIMETHODSTYPES.PUT, body, element }),
+	patch: (url: string, body: Record<string, unknown>, element?: HTMLElement) =>
+		useApi({ url, method: APIMETHODSTYPES.PATCH, body, element }),
 };
