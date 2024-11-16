@@ -32,8 +32,21 @@
 			<h2>Post</h2>
 			<nav>
 				<ul>
-					<li><router-link to="/articles" exact>All Articles</router-link></li>
-					<li><router-link to="/articles/create">New Article</router-link></li>
+					<li>
+						<router-link
+							:class="{ active: useRoute().name === 'Articles' }"
+							to="/articles"
+							exact
+							>All Articles</router-link
+						>
+					</li>
+					<li>
+						<router-link
+							:class="{ active: useRoute().name === 'CreateArticles' }"
+							to="/articles/create"
+							>New Article</router-link
+						>
+					</li>
 				</ul>
 			</nav>
 			<!-- Logout button in sidebar for mobile view -->
@@ -169,7 +182,7 @@ const onLogout = () => {
 }
 
 .sidebar h2 {
-	margin: 0;
+	margin: 10px 0;
 	padding: 10px 20px;
 	font-size: 20px;
 	font-weight: bold;
@@ -194,8 +207,11 @@ const onLogout = () => {
 	transition: background-color 0.3s;
 }
 
-.sidebar nav ul li a:hover {
+.sidebar nav ul li a.active {
 	background-color: rgba(255, 255, 255, 0.2);
+}
+.sidebar nav ul li a:hover {
+	background-color: rgba(255, 255, 255, 0.3);
 }
 
 .sidebar-logout {
