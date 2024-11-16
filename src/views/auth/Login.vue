@@ -99,7 +99,7 @@ const onFormSubmit = (e) => {
 					toast.add({
 						severity: "error",
 						summary: key,
-						detail: value[0],
+						detail: value[0] || "Something goes wrong",
 						life: 3000,
 					});
 				});
