@@ -7,6 +7,7 @@ export interface IntCreateArticle {
 	description: string;
 	body: string;
 	tagList: string[];
+	slug?: string;
 }
 export interface IntArticle {
 	slug: string;

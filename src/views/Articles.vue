@@ -71,6 +71,8 @@ import Tag from "primevue/tag";
 import router from "@/router";
 import ActionButton from "@/components/ActionButton.vue";
 import { useToast } from "primevue/usetoast";
+import { useConfirm } from "primevue/useconfirm";
+const confirm = useConfirm();
 
 const rowsNumber = 10;
 const toast = useToast();
@@ -111,24 +113,40 @@ const onEdit = (info) => {
 	router.push(`/Articles/edit/${info.slug}`);
 };
 const onDelete = (info) => {
-	store
-		.deleteArticle(info.slug, articlesContainer.value)
-		.then(() => {
-			toast.add({
-				severity: "success",
-				detail: "Article deleted successfuly",
-				life: 3000,
-			});
-			fetchArticles();
-		})
-		.catch((err) => {
-			toast.add({
-				severity: "error",
-				summary: "Error",
-				detail: err?.message || "Something goes wrong",
-				life: 3000,
-			});
-		});
+	confirm.require({
+		message: "Are you sure to delete Article?",
+		header: "Delete Article",
+		rejectProps: {
+			label: "No",
+			severity: "secondary",
+			style: "padding: 0 15px 5px 15px",
+			outlined: true,
+		},
+		acceptProps: {
+			label: "Yes",
+			severity: "danger",
+		},
+		accept: () => {
+			store
+				.deleteArticle(info.slug, articlesContainer.value)
+				.then(() => {
+					toast.add({
+						severity: "success",
+						detail: "Article deleted successfuly",
+						life: 3000,
+					});
+					fetchArticles();
+				})
+				.catch((err) => {
+					toast.add({
+						severity: "error",
+						summary: "Error",
+						detail: err?.message || "Something goes wrong",
+						life: 3000,
+					});
+				});
+		},
+	});
 };
 
 const observePagination = () => {
