@@ -111,8 +111,8 @@ const onFormSubmit = (e) => {
 				});
 				router.push("/");
 			})
-			.catch((error) => {
-				objectMap(error, (value, key) => {
+			.catch((err) => {
+				objectMap(err.errors, (value, key) => {
 					toast.add({
 						severity: "error",
 						summary: key,

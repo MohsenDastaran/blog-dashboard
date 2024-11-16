@@ -47,7 +47,7 @@ const useApi = (data: ApiRequestData) =>
 			.then((res: unknown) => {
 				resolve(res);
 			})
-			.catch((err) => reject(err.data.errors))
+			.catch((err) => reject(err.data))
 			.finally(() => {
 				loadingInstance.close();
 			});

@@ -43,7 +43,7 @@ export const useAuthStore = defineStore("auth", () => {
 		user.value = {};
 		storage.remove(enuStorageKey.token);
 		storage.remove(enuStorageKey.user);
-		router.push("login");
+		router.push("/login");
 	};
 
 	const registerUser = (payload: IntUserRequest) =>

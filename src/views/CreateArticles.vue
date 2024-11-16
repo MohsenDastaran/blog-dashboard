@@ -68,13 +68,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, useTemplateRef, Ref, toRaw } from "vue";
+import { ref, onMounted, useTemplateRef, toRaw } from "vue";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { z } from "zod";
 import { useArticleStore } from "@/store/articles";
 import arrow from "@/components/arrow.vue";
 import { useToast } from "primevue/usetoast";
 import { useRouter } from "vue-router";
+import { objectMap } from "@/utils/objectMap";
 
 const router = useRouter();
 const toast = useToast();
@@ -118,11 +119,13 @@ const onFormSubmit = (e) => {
 			})
 			.catch((err) => {
 				console.error(err);
-				toast.add({
-					severity: "error",
-					summary: "Error",
-					detail: "Something goes wrong",
-					life: 3000,
+				objectMap(err.errors, (value, key) => {
+					toast.add({
+						severity: "error",
+						summary: key,
+						detail: value[0] || "Something goes wrong",
+						life: 3000,
+					});
 				});
 			});
 	}

@@ -120,14 +120,14 @@ const onDelete = (info) => {
 			});
 			fetchArticles();
 		})
-		.catch(() =>
+		.catch((err) => {
 			toast.add({
 				severity: "error",
 				summary: "Error",
-				detail: "Something goes wrong",
+				detail: err?.message || "Something goes wrong",
 				life: 3000,
-			})
-		);
+			});
+		});
 };
 
 const observePagination = () => {
