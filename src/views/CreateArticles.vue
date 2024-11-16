@@ -41,7 +41,7 @@
 							fluid
 							@keypress.enter="addTag"
 						/>
-						<InputGroupAddon :style="Boolean(newTag) ? 'display: block;' : ''">
+						<InputGroupAddon :class="{ 'opacity-1': Boolean(newTag) }">
 							<Button @click="addTag" icon="pi pi-times" severity="secondary"
 								><arrow />
 							</Button>
@@ -62,13 +62,7 @@
 					</div>
 				</section>
 			</div>
-			<Button
-				style="padding: 8px"
-				type="submit"
-				label="Submit"
-				severity="info"
-				:loading="isLoading"
-			/>
+			<Button type="submit" label="Submit" severity="info" :loading="isLoading" />
 		</Form>
 	</div>
 </template>
@@ -116,8 +110,8 @@ const onFormSubmit = (e) => {
 			.then(() => {
 				toast.add({
 					severity: "success",
-					summary: "Success",
-					detail: `Blog created successfully.`,
+					summary: "Well done!",
+					detail: ` Article created successfuly`,
 					life: 3000,
 				});
 				router.push("/articles");
@@ -161,7 +155,7 @@ Form > Button {
 	margin: 20px 0 10px 0;
 	border: solid 1px var(--water-blue);
 	background-color: var(--water-blue);
-	padding: 0 10px 2px;
+	padding: 10px 20px;
 }
 .tags-box {
 	border: 1px solid var(--p-inputtext-border-color);
@@ -174,7 +168,7 @@ Form > Button {
 }
 .checkbox + label {
 	padding: 5px 0 5px 15px;
-	translate: 0px 11px;
+	translate: 0px 16px;
 	display: inline-block;
 }
 .checkbox + label::first-letter {
@@ -182,10 +176,21 @@ Form > Button {
 }
 .InputGroup {
 	margin-bottom: 20px;
+	position: relative;
 }
 .tag-input + div.p-inputgroupaddon {
-	display: none;
+	display: block;
+	position: absolute;
+	right: 0;
+	opacity: 0;
 	height: 40px;
+}
+.opacity-1 {
+	opacity: 1 !important;
+}
+.tag-input + div.p-inputgroupaddon > button {
+	z-index: 1;
+	border-left: 1px solid var(--el-border-color);
 }
 
 label {

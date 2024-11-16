@@ -89,7 +89,7 @@ const onFormSubmit = (e) => {
 				toast.add({
 					severity: "success",
 					summary: "Success",
-					detail: `${res?.user?.username || ""} has successfully logged in.`,
+					detail: `${res?.user?.username || ""} logged in.`,
 					life: 3000,
 				});
 				router.push("/");

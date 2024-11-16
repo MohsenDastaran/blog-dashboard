@@ -15,6 +15,11 @@
 	--p-form-field-focus-border-color: #1c7cd5 !important;
 	--p-primary-color: #1c7cd5 !important;
 	--p-primary-hover-color: #155490 !important;
+	--p-datatable-header-cell-background: var(--silver) !important;
+	--p-paginator-nav-button-border-radius: 1px !important;
+	--p-paginator-nav-button-selected-background: var(--water-blue) !important;
+	--p-paginator-nav-button-selected-color: white !important;
+	--p-paginator-gap: 0 !important;
 }
 
 /* Fonts */
@@ -74,7 +79,7 @@ body .toast-width {
 
 ::-webkit-scrollbar {
 	width: 4px; /* Narrow width */
-	height: 8px; /* Narrow height for horizontal scrollbars */
+	height: 4px; /* Narrow height for horizontal scrollbars */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -88,4 +93,11 @@ body .toast-width {
 
 ::-webkit-scrollbar-track {
 	background: #f1f1f1; /* Track color */
+}
+.p-paginator-page,
+.p-paginator-next,
+.p-paginator-last,
+.p-paginator-first,
+.p-paginator-prev {
+	border: 1px solid var(--el-border-color) !important;
 }

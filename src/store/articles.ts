@@ -15,6 +15,9 @@ export const useArticleStore = defineStore("article", () => {
 
 	const createBlog = (payload: IntCreateArticle, element: HTMLElement) =>
 		api.post("articles", { article: payload }, element);
+	const getArticles = (offset, element: HTMLElement) =>
+		api.get("articles/", { offset, limit: 10 }, element);
+
 	const getTags = (element: HTMLElement) => {
 		if (tags.value.length) {
 			return Promise.resolve({ tags: tags.value });
@@ -26,5 +29,5 @@ export const useArticleStore = defineStore("article", () => {
 		});
 	};
 
-	return { getTags, createBlog, tags };
+	return { getTags, createBlog, tags, getArticles };
 });
