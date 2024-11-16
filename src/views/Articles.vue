@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUpdated, useTemplateRef, nextTick } from "vue";
+import { ref, onMounted, useTemplateRef } from "vue";
 import { useArticleStore } from "@/store/articles";
 import Tag from "primevue/tag";
 import router from "@/router";
@@ -107,7 +107,8 @@ const fetchArticles = (offset) => {
 };
 
 const onEdit = (info) => {
-	console.log(info);
+	store.setArticleForEdit(info);
+	router.push(`/Articles/edit/${info.slug}`);
 };
 const onDelete = (info) => {
 	store

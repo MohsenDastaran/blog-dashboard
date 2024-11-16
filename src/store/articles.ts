@@ -8,16 +8,42 @@ export interface IntCreateArticle {
 	body: string;
 	tagList: string[];
 }
+export interface IntArticle {
+	slug: string;
+	title: string;
+	description: string;
+	body: string;
+	tagList: string[];
+	createdAt: Date;
+	updatedAt: Date;
+	favorited: boolean;
+	favoritesCount: number;
+	author: Author;
+}
+
+export interface Author {
+	username: string;
+	bio: null;
+	image: string;
+	following: boolean;
+}
 
 export const useArticleStore = defineStore("article", () => {
-	// const articles = ref([]);
+	const articleForEdit: Ref<IntArticle | null> = ref(null);
 	const tags: Ref<string[]> = ref([]);
 
-	const createBlog = (payload: IntCreateArticle, element: HTMLElement) =>
+	const setArticleForEdit = (article: IntArticle) => {
+		articleForEdit.value = article;
+	};
+	const createArticle = (payload: IntCreateArticle, element: HTMLElement) =>
 		api.post("articles", { article: payload }, element);
+	const editArticle = (payload: IntCreateArticle, element: HTMLElement) =>
+		api.put(`articles/${payload.slug}`, { article: payload }, element);
 
 	const getArticles = (offset: number, element: HTMLElement) =>
-		api.get("articles/", { offset, limit: 10 }, element);
+		api.get("articles/", { offset: offset || 0, limit: 10 }, element);
+	const getArticleBySlug = (slug: string, element: HTMLElement) =>
+		api.get(`articles/${slug}`, {}, element);
 
 	const deleteArticle = (slug: string, element: HTMLElement) =>
 		api.delete(`articles/${slug}`, {}, element);
@@ -33,5 +59,15 @@ export const useArticleStore = defineStore("article", () => {
 		});
 	};
 
-	return { getTags, createBlog, tags, getArticles, deleteArticle };
+	return {
+		getTags,
+		createArticle,
+		tags,
+		getArticles,
+		deleteArticle,
+		setArticleForEdit,
+		articleForEdit,
+		getArticleBySlug,
+		editArticle,
+	};
 });

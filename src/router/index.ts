@@ -52,6 +52,7 @@ const router = createRouter({
 					name: "CreateArticles",
 					path: "/articles/create",
 					component: () => import("@/views/CreateArticles.vue"),
+					alias: "/Articles/edit/:slug",
 				},
 			],
 		},
