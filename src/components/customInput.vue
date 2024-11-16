@@ -1,7 +1,14 @@
 <template>
 	<div class="input-wrapper">
 		<label :class="{ 'label-error': invalid }" :for="name">{{ label }}</label>
-		<InputText pt:root:class="pt-input" :name type="text" :placeholder fluid />
+		<InputText
+			pt:root:class="pt-input"
+			:name
+			type="text"
+			:placeholder
+			fluid
+			v-model="model"
+		/>
 		<Message v-if="invalid" severity="error" size="small" variant="simple">{{
 			errorMessage
 		}}</Message>
@@ -16,6 +23,7 @@ defineProps<{
 	label?: string;
 	placeholder?: string;
 }>();
+const model = defineModel();
 </script>
 <style scoped>
 .input-wrapper {

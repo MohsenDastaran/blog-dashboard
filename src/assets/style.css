@@ -8,7 +8,6 @@
 	--dark-sky-blue: #5bc0de;
 	--warm-grey: #707070;
 	--brick: #cb2e25;
-	--brick: #cb2e25;
 	--slate-gray: #818a91;
 	--water-blue: #1c7cd5;
 	--silver: #eceeef;
@@ -18,6 +17,7 @@
 	--p-datatable-header-cell-background: var(--silver) !important;
 	--p-paginator-nav-button-border-radius: 1px !important;
 	--p-paginator-nav-button-selected-background: var(--water-blue) !important;
+	--p-button-danger-background: var(--brick) !important;
 	--p-paginator-nav-button-selected-color: white !important;
 	--p-paginator-gap: 0 !important;
 }
@@ -100,4 +100,10 @@ body .toast-width {
 .p-paginator-first,
 .p-paginator-prev {
 	border: 1px solid var(--el-border-color) !important;
+}
+.p-confirmdialog-message {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 40px;
+	border-top: 1px solid #ccc;
+	padding-top: 25px;
 }

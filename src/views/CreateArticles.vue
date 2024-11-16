@@ -1,12 +1,13 @@
 <template>
 	<div class="crete-article" ref="createArticleForm">
-		<h2>New Article</h2>
-		<Form @submit="onFormSubmit" :resolver v-slot="$form">
+		<h2>{{ isEdit ? "Edit" : "New" }} Article</h2>
+		<Form @submit="onFormSubmit" :initialValues :resolver v-slot="$form">
 			<div class="section-wrapper">
 				<section class="info">
 					<customInput
 						:errorMessage="$form.title?.error?.message"
 						:invalid="$form.title?.invalid"
+						v-model="initialValues.title"
 						label="Title"
 						placeholder="Title"
 						name="title"
@@ -15,12 +16,14 @@
 						label="Description"
 						placeholder="Description"
 						name="description"
+						v-model="initialValues.description"
 					></customInput>
 					<div>
 						<label for="textarea">Body</label>
 						<Textarea
 							name="body"
 							style="resize: none; height: 190px"
+							v-model="initialValues.body"
 							id="textarea"
 							rows="5"
 							cols="30"
@@ -62,13 +65,13 @@
 					</div>
 				</section>
 			</div>
-			<Button type="submit" label="Submit" severity="info" :loading="isLoading" />
+			<Button type="submit" label="Submit" severity="info" />
 		</Form>
 	</div>
 </template>
 
 <script setup>
-import { ref, onMounted, useTemplateRef, toRaw } from "vue";
+import { ref, onMounted, useTemplateRef, toRaw, computed } from "vue";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { z } from "zod";
 import { useArticleStore } from "@/store/articles";
@@ -77,8 +80,15 @@ import { useToast } from "primevue/usetoast";
 import { useRouter } from "vue-router";
 import { objectMap } from "@/utils/objectMap";
 
+const store = useArticleStore();
 const router = useRouter();
 const toast = useToast();
+
+const slug = computed(() => router.currentRoute?.value?.params?.slug);
+const isEdit = computed(
+	() => Boolean(store.articleForEdit) || Boolean(slug.value)
+);
+const articleForEdit = computed(() => store.articleForEdit);
 
 const newTag = ref("");
 const tags = ref([]);
@@ -86,9 +96,18 @@ const selectedTags = ref([]);
 const tagsBox = useTemplateRef("tagsBox");
 const createArticleForm = useTemplateRef("createArticleForm");
 
-const store = useArticleStore();
-const isLoading = ref(false);
-
+const initialValues = ref({
+	title: "",
+	body: "",
+	description: "",
+});
+const setInitialValues = (article) => {
+	selectedTags.value = article.tagList;
+	article.tagList.forEach((t) => {
+		if (!tags.value.includes(t)) tags.value.push(t);
+	});
+	initialValues.value = article;
+};
 const addTag = () => {
 	if (newTag.value.trim() !== "") {
 		tags.value.push(newTag.value);
@@ -104,10 +123,39 @@ const resolver = zodResolver(
 	})
 );
 const onFormSubmit = (e) => {
-	if (e.valid) {
-		const payload = { ...e.values, tagList: toRaw(selectedTags.value) };
+	if (isEdit.value) {
+		const payload = {
+			...initialValues.value,
+			tagList: toRaw(selectedTags.value),
+		};
 		store
-			.createBlog(payload, createArticleForm.value)
+			.editArticle(payload, createArticleForm.value)
+			.then(() => {
+				toast.add({
+					severity: "success",
+					summary: "Well done!",
+					detail: ` Article updated successfuly`,
+					life: 3000,
+				});
+				router.push("/articles");
+			})
+			.catch((err) => {
+				console.error(err);
+				objectMap(err.errors, (value, key) => {
+					toast.add({
+						severity: "error",
+						summary: key,
+						detail: value[0] || "Something goes wrong",
+						life: 3000,
+					});
+				});
+			});
+	}
+	if (e.valid && !isEdit.value) {
+		const payload = { ...e.values, tagList: toRaw(selectedTags.value) };
+
+		store
+			.createArticle(payload, createArticleForm.value)
 			.then(() => {
 				toast.add({
 					severity: "success",
@@ -131,7 +179,34 @@ const onFormSubmit = (e) => {
 	}
 };
 onMounted(() => {
-	store.getTags(tagsBox.value).then((data) => (tags.value = data.tags));
+	store.getTags(tagsBox.value).then((data) => {
+		tags.value = data.tags;
+		if (isEdit.value) {
+			if (store.articleForEdit) setInitialValues(store.articleForEdit);
+			else
+				store
+					.getArticleBySlug(slug.value, createArticleForm.value)
+					.then((data) => {
+						setInitialValues(data.article);
+					})
+					.catch(() => {
+						toast.add({
+							severity: "error",
+							summary: "Error",
+							detail: "Something goes wrong",
+							life: 3000,
+						});
+						router.push("/Articles/create");
+						setTimeout(() => {
+							toast.add({
+								severity: "info",
+								detail: "Create New Article Instead",
+								life: 3000,
+							});
+						}, 1000);
+					});
+		}
+	});
 });
 </script>
 <style scoped>
