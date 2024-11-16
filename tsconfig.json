@@ -1,7 +1,19 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+	"references": [
+		{ "path": "./tsconfig.app.json" },
+		{ "path": "./tsconfig.node.json" }
+	],
+
+	"compilerOptions": {
+		"module": "ESNext",
+		"lib": ["es2018", "DOM"],
+		"moduleResolution": "node",
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"]
+		},
+		"types": ["vite/client"]
+	},
+	"include": ["src/**/*", "vue-shim.d.ts"],
+	"exclude": ["node_modules", "dist"]
 }

@@ -1,0 +1,109 @@
+:root {
+	--charcoal-grey: #373a3c;
+	--pinkish-grey: #e7cecd;
+	--light-grey-green: #d5e6c7;
+	--military-green: #4b713d;
+	--pale-red: #d9534f;
+	--gunmetal: #55595c;
+	--dark-sky-blue: #5bc0de;
+	--warm-grey: #707070;
+	--brick: #cb2e25;
+	--slate-gray: #818a91;
+	--water-blue: #1c7cd5;
+	--silver: #eceeef;
+	--p-form-field-focus-border-color: #1c7cd5 !important;
+	--p-primary-color: #1c7cd5 !important;
+	--p-primary-hover-color: #155490 !important;
+	--p-datatable-header-cell-background: var(--silver) !important;
+	--p-paginator-nav-button-border-radius: 1px !important;
+	--p-paginator-nav-button-selected-background: var(--water-blue) !important;
+	--p-button-danger-background: var(--brick) !important;
+	--p-paginator-nav-button-selected-color: white !important;
+	--p-paginator-gap: 0 !important;
+}
+
+/* Fonts */
+@font-face {
+	font-family: "Helvetica Neue";
+	src: url("@/assets/fonts/HelveticaNeueLight.otf") format("opentype");
+	font-style: normal;
+}
+body {
+	margin: 0;
+}
+* {
+	font-family: "Helvetica Neue";
+	letter-spacing: 1px;
+}
+.pt-input {
+	border-radius: 4px !important;
+	height: 40px;
+	border: solid 1px #ddd;
+}
+.pt-input input {
+	border-radius: 0 !important;
+}
+
+.pt-button {
+	height: 40px;
+	border-radius: 4px;
+}
+body .pt-toast {
+	align-items: baseline;
+}
+body .toast-width {
+	width: 30rem;
+}
+@media (max-width: 767px) {
+	.card {
+		margin: 0 1rem;
+	}
+	body .toast-width {
+		width: 22rem;
+	}
+	.toast-wrapper > strong {
+		display: none;
+	}
+}
+
+/* fade transition on view change */
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+}
+
+::-webkit-scrollbar {
+	width: 4px; /* Narrow width */
+	height: 4px; /* Narrow height for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--water-blue); /* Thumb color */
+	border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--charcoal-grey);
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1; /* Track color */
+}
+.p-paginator-page,
+.p-paginator-next,
+.p-paginator-last,
+.p-paginator-first,
+.p-paginator-prev {
+	border: 1px solid var(--el-border-color) !important;
+}
+.p-confirmdialog-message {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 40px;
+	border-top: 1px solid #ccc;
+	padding-top: 25px;
+}
