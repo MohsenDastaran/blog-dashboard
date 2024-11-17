@@ -112,3 +112,6 @@ body .toast-width {
 body .p-popover-content {
   padding: 0;
 }
+body .p-message-text {
+	margin-top: 10px;
+}
