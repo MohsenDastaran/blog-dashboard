@@ -76,11 +76,9 @@ const initialValues: Ref<IntUserRequest> = ref({
 const resolver = zodResolver(
 	z.object({
 		// uncomment to add validation for username & email
-		username: z.string().optional(),
-		// username: z.string().min(1, { message: "Username is required." }),
-		email: z.string().optional(),
-		// 	.min(1, { message: "Email is required." })
-		// 	.email({ message: "Invalid email address." }),
+		// username: z.string().optional(),
+		username: z.string().min(1, { message: "Username is required." }),
+		email: z.string().min(1, { message: "Email is required." }).email({ message: "Invalid email address." }),
 		password: z.string().min(1, { message: "Required field" }),
 
 		// uncomment in case of more rules
@@ -126,7 +124,7 @@ const onFormSubmit = (e) => {
 </script>
 <style scoped>
 .input-wrapper {
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 .label-error {

@@ -60,10 +60,8 @@ const password = ref("");
 const resolver = zodResolver(
 	z.object({
 		// uncomment to add validation for email
-		email: z.string().optional(),
-
-		// 	.min(1, { message: "Email is required." })
-		// 	.email({ message: "Invalid email address." }),
+		email: z.string().min(1, { message: "Email is required." })
+		.email({ message: "Invalid email address." }),
 		password: z.string().min(1, { message: "Required field" }),
 
 		// uncomment in case of more rules
@@ -109,7 +107,7 @@ const onFormSubmit = (e) => {
 </script>
 <style scoped>
 .input-wrapper {
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 .label-error {
 	color: var(--p-message-error-simple-color);
