@@ -143,7 +143,7 @@ const onFormSubmit = (e) => {
 					toast.add({
 						severity: "error",
 						summary: key,
-						detail: value[0] || "Something goes wrong",
+						detail: value[0] || "Something went wrong",
 						life: 3000,
 					});
 				});
@@ -169,7 +169,7 @@ const onFormSubmit = (e) => {
 					toast.add({
 						severity: "error",
 						summary: key,
-						detail: value[0] || "Something goes wrong",
+						detail: value[0] || "Something went wrong",
 						life: 3000,
 					});
 				});
@@ -192,7 +192,7 @@ onMounted(() => {
 						toast.add({
 							severity: "error",
 							summary: "Error",
-							detail: "Something goes wrong",
+							detail: "Something went wrong",
 							life: 3000,
 						});
 						router.push("/Articles/create");
