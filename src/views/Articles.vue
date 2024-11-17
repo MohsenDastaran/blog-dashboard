@@ -30,10 +30,10 @@
           <Tag
             style="margin: 0 3px 3px"
             severity="info"
-            v-for="eachTag in data.tagList"
+            v-for="eachTag in data.tagList.slice(0, 10)"
             :value="eachTag"
             >{{ eachTag }}</Tag
-          >
+          > <span v-if="data.tagList.length > 10">...</span>
         </template></Column
       >
       <Column field="body" header="Excerpt" style="max-width: 55rem"
