@@ -32,7 +32,7 @@
 			<h2>Post</h2>
 			<nav>
 				<ul>
-					<li>
+					<li @click="toggleSidebar">
 						<router-link
 							:class="{ active: useRoute().name === 'Articles' }"
 							to="/articles"
@@ -40,7 +40,7 @@
 							>All Articles</router-link
 						>
 					</li>
-					<li>
+					<li @click="toggleSidebar">
 						<router-link
 							:class="{ active: useRoute().name === 'CreateArticles' }"
 							to="/articles/create"
