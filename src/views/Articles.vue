@@ -147,7 +147,7 @@ const onDelete = (info) => {
           toast.add({
             severity: "error",
             summary: "Error",
-            detail: err?.message || "Something goes wrong",
+            detail: err?.message || "Something went wrong",
             life: 3000,
           });
         });
