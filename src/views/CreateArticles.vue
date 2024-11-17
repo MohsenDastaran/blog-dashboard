@@ -138,15 +138,23 @@ const onFormSubmit = (e) => {
 				router.push("/articles");
 			})
 			.catch((err) => {
-				console.error(err);
-				objectMap(err.errors, (value, key) => {
+				if (err.message) {
 					toast.add({
 						severity: "error",
-						summary: key,
-						detail: value[0] || "Something went wrong",
+						summary: "Error",
+						detail: err.message,
 						life: 3000,
 					});
-				});
+				} else if (err.errors) {
+					objectMap(err.errors, (value, key) => {
+						toast.add({
+							severity: "error",
+							summary: key,
+							detail: value[0] || "Something went wrong",
+							life: 3000,
+						});
+					});
+				}
 			});
 	}
 	if (e.valid && !isEdit.value) {
