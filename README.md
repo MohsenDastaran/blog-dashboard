@@ -5,7 +5,7 @@
 Make sure you have the following installed on your system:
 
 - [Node.js](https://nodejs.org/) (v16 or later is recommended)
-- [npm](https://www.npmjs.com/) (comes with Node.js) or [pnpm](https://pnpm.io/) (v8 or later is recommended)
+- [pnpm](https://pnpm.io/)
 
 ---
 
@@ -13,13 +13,6 @@ Make sure you have the following installed on your system:
 
 Clone this repository and install the dependencies:
 
-### Using npm:
-
-```
-npm install
-```
-
-### Using pnpm:
 
 ```
 pnpm install
@@ -33,14 +26,6 @@ pnpm install
 
 Run the development server to preview and develop your project locally.
 
-#### Using npm:
-
-```
-npm run dev
-```
-
-#### Using pnpm:
-
 ```
 pnpm dev
 ```
@@ -53,14 +38,6 @@ The server will be available at [http://localhost:5173](http://localhost:5173) (
 
 Generate an optimized production build.
 
-#### Using npm:
-
-```
-npm run build
-```
-
-#### Using pnpm:
-
 ```
 pnpm build
 ```
@@ -72,14 +49,6 @@ The output files will be located in the \`dist\` directory.
 ### Preview Production Build
 
 Preview the production build locally.
-
-#### Using npm:
-
-```
-npm run preview
-```
-
-#### Using pnpm:
 
 ```
 pnpm preview
