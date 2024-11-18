@@ -32,7 +32,7 @@
 			<h2>Post</h2>
 			<nav>
 				<ul>
-					<li>
+					<li @click="toggleSidebar">
 						<router-link
 							:class="{ active: useRoute().name === 'Articles' }"
 							to="/articles"
@@ -40,7 +40,7 @@
 							>All Articles</router-link
 						>
 					</li>
-					<li>
+					<li @click="toggleSidebar">
 						<router-link
 							:class="{ active: useRoute().name === 'CreateArticles' }"
 							to="/articles/create"
@@ -238,6 +238,7 @@ const onLogout = () => {
 	padding: 20px;
 }
 
+
 @media (max-width: 768px) {
 	.sidebar {
 		width: 100%;
@@ -245,8 +246,8 @@ const onLogout = () => {
 	}
 
 	.sidebar-open {
-		transform: translateX(-20%);
-		padding-left: 20%;
+		transform: translateX(-60%);
+		padding-left: 60%;
 	}
 
 	.content,
@@ -270,6 +271,12 @@ const onLogout = () => {
 	}
 	.header-left h2 {
 		font-size: 16px;
+	}
+}
+@media (max-width: 450px) {
+	.sidebar-open {
+		transform: translateX(-20%);
+		padding-left: 20%;
 	}
 }
 </style>
